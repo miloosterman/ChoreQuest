@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, Modal, Pressable, Text } from 'react-native';
 
 import Input from '@/components/Input';
 import Header from '@/components/Header';
 import ChecklistItem from '@/components/ChecklistItem';
+import NewQuestModal from '@/components/NewQuestModal';
 
 type ChecklistItemType = {
   id: string;
@@ -14,26 +15,25 @@ type ChecklistItemType = {
 export default function App() {
   const [text, setText] = useState<string>("");
   const [checklist, setChecklist] = useState<ChecklistItemType[]>([]);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const submitHandler = () => {
     if (text.trim()) {
-      setChecklist([...checklist, {id: Date.now().toString(), text, isChecked: false}]);
+      setChecklist([...checklist, { id: Date.now().toString(), text, isChecked: false }]);
       setText("");
     }
   };
 
   const toggleCheck = (id: string) => {
-    setChecklist(checklist.map(item => 
-      item.id === id ? { ...item, isChecked: !item.isChecked} : item
+    setChecklist(checklist.map(item =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
     ));
   };
 
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.section}>
-        <Input value={text} placeholder="Insert New Chore" onChangeText={setText} onSubmit={submitHandler} />
-      </View>
+      <NewQuestModal/>
       <View style={styles.section}>
         <FlatList
           data={checklist}
