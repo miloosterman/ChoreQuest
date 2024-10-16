@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet } from 'react-native';
 
 type props = {
   value?: string;
@@ -10,7 +10,6 @@ type props = {
 export default function Input({ value, placeholder, onChangeText, onSubmit }: props) {
 
   return (
-    <SafeAreaView>
       <TextInput
         style={styles.input}
         value={value}
@@ -20,7 +19,6 @@ export default function Input({ value, placeholder, onChangeText, onSubmit }: pr
         onSubmitEditing={onSubmit}
       >
       </TextInput>
-    </SafeAreaView >
   )
 };
 

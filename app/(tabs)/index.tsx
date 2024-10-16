@@ -1,28 +1,45 @@
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import Input from '@/components/Input';
+import Header from '@/components/Header';
+import ChecklistItem from '@/components/ChecklistItem';
+
+type ChecklistItemType = {
+  id: string;
+  text: string;
+  isChecked: boolean;
+};
+
 export default function App() {
   const [text, setText] = useState<string>("");
-  const [checklist, setChecklist] = useState<string[]>([]);
+  const [checklist, setChecklist] = useState<ChecklistItemType[]>([]);
 
   const submitHandler = () => {
     if (text.trim()) {
-      setChecklist([...checklist, text]);
+      setChecklist([...checklist, {id: Date.now().toString(), text, isChecked: false}]);
       setText("");
     }
-  }
+  };
+
+  const toggleCheck = (id: string) => {
+    setChecklist(checklist.map(item => 
+      item.id === id ? { ...item, isChecked: !item.isChecked} : item
+    ));
+  };
+
   return (
     <View style={styles.container}>
+      <Header />
       <View style={styles.section}>
         <Input value={text} placeholder="Insert New Chore" onChangeText={setText} onSubmit={submitHandler} />
       </View>
       <View style={styles.section}>
         <FlatList
           data={checklist}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Text style={styles.checklistItem}>{item}</Text>
+            <ChecklistItem item={item.text} isChecked={item.isChecked} setIsChecked={() => toggleCheck(item.id)} />
           )}
         />
       </View>
@@ -33,8 +50,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
-    marginVertical: 32,
   },
   section: {
     flexDirection: 'row',
