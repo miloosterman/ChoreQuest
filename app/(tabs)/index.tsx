@@ -15,7 +15,6 @@ type ChecklistItemType = {
 export default function App() {
   const [text, setText] = useState<string>("");
   const [checklist, setChecklist] = useState<ChecklistItemType[]>([]);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const submitHandler = () => {
     if (text.trim()) {

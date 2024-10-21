@@ -1,6 +1,8 @@
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
+import { useSession } from '../ctx';
 
 export default function Index() {
+  const { signOut } = useSession();
   return (
     <View
       style={{
@@ -10,6 +12,7 @@ export default function Index() {
       }}
     >
       <Text>Settings Placeholder</Text>
+      <Button title="Log Out" onPress={() => signOut() } />
     </View>
   );
 }
