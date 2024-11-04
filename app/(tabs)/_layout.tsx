@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { Redirect, Tabs } from 'expo-router';
 
 
-import { useSession } from '../ctx';
+import { useSession } from '../../firebase/SessionProvider';
 
 export default function TabLayout() {
   const { session, isLoading } = useSession();

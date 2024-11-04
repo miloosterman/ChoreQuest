@@ -1,9 +1,21 @@
 import { Button, Modal, Pressable, Text, View, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import Input from './Input';
+import { addQuest } from '../firebase/databaseService';
 
 export default function NewQuestModal() {
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [questName, setQuestName] = useState('');
+
+  const handleAssignQuest = async () => {
+    try {
+      await addQuest(questName);
+      setQuestName('');
+      setModalVisible(false);
+    } catch (error) {
+      console.error('Error adding quest:', error);
+    }
+  };
 
   return (
     <View>
@@ -14,12 +26,16 @@ export default function NewQuestModal() {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text>Create A New Quest!</Text>
-            <Input placeholder="Quest Name" onChangeText={() => { }} />
+            <Input
+              placeholder="Quest Name"
+              onChangeText={(text) => setQuestName(text)}
+              value={questName}
+            />
             <View style={styles.submitView}>
-              <Pressable style={[styles.button, styles.submitButton]} onPress={() => setModalVisible(!modalVisible)}>
-                <Text >Assign Quest</Text>
+              <Pressable style={[styles.button, styles.submitButton]} onPress={handleAssignQuest}>
+                <Text>Assign Quest</Text>
               </Pressable>
-              <Pressable style={[styles.button, styles.cancelButton]} onPress={() => setModalVisible(!modalVisible)}>
+              <Pressable style={[styles.button, styles.cancelButton]} onPress={() => setModalVisible(false)}>
                 <Text>Cancel</Text>
               </Pressable>
             </View>
@@ -46,7 +62,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -64,17 +80,14 @@ const styles = StyleSheet.create({
     margin: 10,
     textAlign: 'center',
   },
-
   submitButton: {
     backgroundColor: "#A4D55D",
     color: 'black',
   },
-
   cancelButton: {
     backgroundColor: "#FF3B70",
     color: 'black',
   },
-
   buttonText: {
     textAlign: 'center',
   },

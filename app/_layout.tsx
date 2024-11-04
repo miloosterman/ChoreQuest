@@ -1,5 +1,5 @@
 import { Slot } from "expo-router";
-import { SessionProvider } from "./ctx";
+import { SessionProvider } from "../firebase/SessionProvider";
 import { View, StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
 

@@ -1,13 +1,13 @@
 import { router } from 'expo-router';
 import { Button, Text, TextInput, View, StyleSheet, ImageBackground } from 'react-native';
 
-import { useSession } from './ctx';
+import { useSession } from '../firebase/SessionProvider';
 import { useRef, useState } from 'react';
 import { Colors } from '@/constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function SignIn() {
-  const { signIn } = useSession();
+  const { signIn, register } = useSession();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const image = require('../assets/images/signInBackground.jpeg');
@@ -15,7 +15,9 @@ export default function SignIn() {
 
   const handleSignIn = () => {
     signIn(username, password);
-    router.replace('/(tabs)');
+  };
+  const handleRegister = async () => {
+      register(username, password);
   };
 
   return (
@@ -48,6 +50,7 @@ export default function SignIn() {
               onSubmitEditing={handleSignIn} />
           </View>
           <Button title='Sign In' onPress={handleSignIn}></Button>
+          <Button title='Register' onPress={handleRegister} color="#2196F3" />
         </View>
       </ImageBackground>
     </View >
