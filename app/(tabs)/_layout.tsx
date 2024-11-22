@@ -1,8 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Text } from 'react-native';
 import { Redirect, Tabs } from 'expo-router';
-
-
 import { useSession } from '../../firebase/SessionProvider';
 
 export default function TabLayout() {

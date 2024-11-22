@@ -1,44 +1,47 @@
-import { useState } from 'react';
-import { FlatList, StyleSheet, View, Modal, Pressable, Text } from 'react-native';
-
-import Input from '@/components/Input';
+import { useState, useEffect } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import Header from '@/components/Header';
-import ChecklistItem from '@/components/ChecklistItem';
-import NewQuestModal from '@/components/NewQuestModal';
+import NewHeroModal from '@/components/NewHeroModal';
+import { listenToHeroes } from '@/firebase/databaseService';
+import HeroListItem from '@/components/HeroListItem';
+import { useSession } from '@/firebase/SessionProvider';
 
-type ChecklistItemType = {
+type Hero = {
   id: string;
-  text: string;
-  isChecked: boolean;
+  name: string;
 };
 
 export default function App() {
-  const [text, setText] = useState<string>("");
-  const [checklist, setChecklist] = useState<ChecklistItemType[]>([]);
+  const [heroNames, setHeroNames] = useState<Hero[]>([]);
+  const { session } = useSession();
 
-  const submitHandler = () => {
-    if (text.trim()) {
-      setChecklist([...checklist, { id: Date.now().toString(), text, isChecked: false }]);
-      setText("");
+  useEffect(() => {
+    if (!session) {
+      console.log('User is not signed in');
+      return;
     }
-  };
 
-  const toggleCheck = (id: string) => {
-    setChecklist(checklist.map(item =>
-      item.id === id ? { ...item, isChecked: !item.isChecked } : item
-    ));
-  };
+    // Set up the listener for real-time updates
+    const unsubscribe = listenToHeroes(session, (heroes) => {
+      setHeroNames(heroes); // Update state with the hero list
+    });
+
+    // Clean up the listener on component unmount
+    return () => unsubscribe;
+  }, [session]);
 
   return (
     <View style={styles.container}>
       <Header />
-      <NewQuestModal/>
       <View style={styles.section}>
+        <NewHeroModal />
+      </View>
+      <View style={styles.heroSection}>
         <FlatList
-          data={checklist}
+          data={heroNames}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <ChecklistItem item={item.text} isChecked={item.isChecked} setIsChecked={() => toggleCheck(item.id)} />
+            <HeroListItem id={item.id} name={item.name} />
           )}
         />
       </View>
@@ -51,16 +54,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   section: {
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  checklistItem: {
-    padding: 10,
-    fontSize: 18,
-    margin: 10,
     textAlign: 'center',
-    backgroundColor: '#FFD700',
-
-  }
+  },
+  heroSection: {
+    flex: 1,
+  },
 });

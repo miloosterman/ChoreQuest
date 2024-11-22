@@ -1,5 +1,5 @@
 import { Button, Text, View } from "react-native";
-import { useSession } from '../../firebase/firebaseConfig';
+import { useSession } from '../../firebase/SessionProvider';
 
 export default function Index() {
   const { signOut } = useSession();

@@ -2,15 +2,29 @@ import { Button, Modal, Pressable, Text, View, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import Input from './Input';
 import { addQuest } from '../firebase/databaseService';
+import { useSession } from '@/firebase/SessionProvider';
 
-export default function NewQuestModal() {
+type NewQuestModalProps = {
+  heroId: string;
+};
+
+export default function NewQuestModal({ heroId }: NewQuestModalProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [questName, setQuestName] = useState('');
+  const [time, setTime] = useState('');
+  const [gold, setGold] = useState('');
+  const { session } = useSession();
 
   const handleAssignQuest = async () => {
+    if (!session) {
+      console.log('User is not signed in');
+      return;
+    }
     try {
-      await addQuest(questName);
+      await addQuest(questName, parseInt(time), parseInt(gold), session, heroId);
       setQuestName('');
+      setTime('');
+      setGold('');
       setModalVisible(false);
     } catch (error) {
       console.error('Error adding quest:', error);
@@ -31,6 +45,16 @@ export default function NewQuestModal() {
               onChangeText={(text) => setQuestName(text)}
               value={questName}
             />
+            <Input
+              placeholder="Screentime Reward"
+              onChangeText={(text) => setTime(text)}
+              value={time}
+            />
+            <Input
+              placeholder="Gold Reward"
+              onChangeText={(text) => setGold(text)}
+              value={gold}
+            />
             <View style={styles.submitView}>
               <Pressable style={[styles.button, styles.submitButton]} onPress={handleAssignQuest}>
                 <Text>Assign Quest</Text>
@@ -49,17 +73,17 @@ export default function NewQuestModal() {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -81,11 +105,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   submitButton: {
-    backgroundColor: "#A4D55D",
+    backgroundColor: '#A4D55D',
     color: 'black',
   },
   cancelButton: {
-    backgroundColor: "#FF3B70",
+    backgroundColor: '#FF3B70',
     color: 'black',
   },
   buttonText: {
