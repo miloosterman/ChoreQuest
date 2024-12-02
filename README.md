@@ -34,7 +34,7 @@
 5. Scan the QR code with the Expo Go app (iOS/Android) or run on an emulator.
 
 ## Future Enhancements
-Add gamification elements like badges and achievements.
-Enable notifications for chore reminders.
-Provide analytics for parents to monitor progress trends.
-Introduce more character customization options for children.
+- Add gamification elements like badges and achievements.
+- Enable notifications for chore reminders.
+- Provide analytics for parents to monitor progress trends.
+- Introduce more character customization options for children.
