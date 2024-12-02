@@ -1,50 +1,40 @@
-# Welcome to your Expo app 👋
+# Chore Quest
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Chore Quest** is a fun and interactive mobile app designed for parents and children to make chore management an engaging experience. Parents can assign chores to their children, track their progress, and reward them with screen time upon task completion. Children earn points and level up their characters by completing assigned chores, turning household tasks into an adventure!
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
+- **Task Management**: Parents can create, assign, and track chores for each child.
+- **Rewards System**: Children earn screen time and level up their characters for completing tasks.
+- **Interactive Character System**: Kids can customize and grow their in-app characters.
+- **User Authentication**: Secure login for parents and children using Firebase Authentication.
+- **Cross-Platform**: Built with Expo, the app is compatible with both iOS and Android.
+
+---
+
+## Technology Stack
+
+- **Framework**: React Native with Expo
+- **Backend**: Firebase Authentication & Firebase Realtime Database
+- **Project Management**: Git for version control, Jira for sprint planning
+- **Programming Languages**: JavaScript, JSON
+
+## Installation and Setup
+
+1. Clone the repository:
    ```bash
+   git clone https://github.com/miloosterman/ChoreQuest.git
+   cd chorequest
+2. Install dependencies:
    npm install
-   ```
+3. Start the Expo server:
+   npx expo start
+5. Scan the QR code with the Expo Go app (iOS/Android) or run on an emulator.
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Future Enhancements
+Add gamification elements like badges and achievements.
+Enable notifications for chore reminders.
+Provide analytics for parents to monitor progress trends.
+Introduce more character customization options for children.
