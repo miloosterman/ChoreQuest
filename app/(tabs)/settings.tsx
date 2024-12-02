@@ -11,7 +11,6 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Settings Placeholder</Text>
       <Button title="Log Out" onPress={() => signOut() } />
     </View>
   );

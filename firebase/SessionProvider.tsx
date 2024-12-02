@@ -57,7 +57,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
             await setStorageItemAsync('user_session', userCredential.user.uid);
             setSession(userCredential.user.uid);
             router.replace('/(tabs)');
-            Alert.alert('Registration successful! You can now log in.');
+            Alert.alert('Registration successful!');
         } catch (error: any) {
             Alert.alert('Registration Error', error.message);
         }

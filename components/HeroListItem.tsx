@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import { Text, View, StyleSheet, Button, Alert } from "react-native";
 import { useSession } from "@/firebase/SessionProvider";
 
+
 type HeroListItemProps = {
   id: string;
   name: string;
@@ -10,21 +11,6 @@ type HeroListItemProps = {
 
 export default function HeroListItem({ id, name }: HeroListItemProps) {
   const { session } = useSession();
-
-  const handleDelete = async () => {
-    if (!session) {
-      Alert.alert("Error", "User is not signed in.");
-      return;
-    }
-
-    try {
-      await deleteHero(id, session);
-      Alert.alert("Success", "Hero successfully deleted.");
-    } catch (error) {
-      console.error("Error deleting hero:", error);
-      Alert.alert("Error", "Failed to delete the hero.");
-    }
-  };
 
   return (
     <View style={styles.itemContainer}>
@@ -34,7 +20,6 @@ export default function HeroListItem({ id, name }: HeroListItemProps) {
       >
         <Text style={styles.heroButton}>{name}</Text>
       </Link>
-      <Button title="Delete" onPress={handleDelete} />
     </View>
   );
 }

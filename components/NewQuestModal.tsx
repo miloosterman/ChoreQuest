@@ -9,10 +9,10 @@ type NewQuestModalProps = {
 };
 
 export default function NewQuestModal({ heroId }: NewQuestModalProps) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [questName, setQuestName] = useState('');
-  const [time, setTime] = useState('');
-  const [gold, setGold] = useState('');
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [questName, setQuestName] = useState<string>('');
+  const [time, setTime] = useState<string>('');
+  const [gold, setGold] = useState<string>('');
   const { session } = useSession();
 
   const handleAssignQuest = async () => {
@@ -21,7 +21,7 @@ export default function NewQuestModal({ heroId }: NewQuestModalProps) {
       return;
     }
     try {
-      await addQuest(questName, parseInt(time), parseInt(gold), session, heroId);
+      await addQuest(questName, parseInt(time), parseInt(gold), heroId, session);
       setQuestName('');
       setTime('');
       setGold('');
@@ -33,9 +33,7 @@ export default function NewQuestModal({ heroId }: NewQuestModalProps) {
 
   return (
     <View>
-      <Pressable style={[styles.button, styles.submitButton]} onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>Create New Quest</Text>
-      </Pressable>
+      <Button title="Create New Quest" onPress={() => setModalVisible(true)} />
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -56,12 +54,8 @@ export default function NewQuestModal({ heroId }: NewQuestModalProps) {
               value={gold}
             />
             <View style={styles.submitView}>
-              <Pressable style={[styles.button, styles.submitButton]} onPress={handleAssignQuest}>
-                <Text>Assign Quest</Text>
-              </Pressable>
-              <Pressable style={[styles.button, styles.cancelButton]} onPress={() => setModalVisible(false)}>
-                <Text>Cancel</Text>
-              </Pressable>
+              <Button title="Assign Quest" onPress={() => handleAssignQuest()} />
+              <Button title="Cancel" color="#FF3333" onPress={() => setModalVisible(false)} />
             </View>
           </View>
         </View>

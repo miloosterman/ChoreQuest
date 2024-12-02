@@ -21,12 +21,10 @@ export default function App() {
       return;
     }
 
-    // Set up the listener for real-time updates
     const unsubscribe = listenToHeroes(session, (heroes) => {
-      setHeroNames(heroes); // Update state with the hero list
+      setHeroNames(heroes);
     });
 
-    // Clean up the listener on component unmount
     return () => unsubscribe;
   }, [session]);
 

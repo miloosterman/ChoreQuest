@@ -37,7 +37,7 @@ export default function NewQuestModal() {
             />
             <View style={styles.submitView}>
               <Button title="Add" onPress={handleNewHero} />
-              <Button title="Cancel" onPress={() => setModalVisible(false)}/>
+              <Button title="Cancel" color="#FF3333" onPress={() => setModalVisible(false)}/>
             </View>
           </View>
         </View>

@@ -24,9 +24,10 @@ export default function Input({ value, placeholder, onChangeText, onSubmit }: pr
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    margin: 12,
+    margin: 10,
+    width: 150,
     borderWidth: 1,
     padding: 10,
+    textAlign: "center",
   },
 });
